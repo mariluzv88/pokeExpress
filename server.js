@@ -3,7 +3,7 @@ const app = express()
 PORT = 3000
 require('dotenv').config()
 const mongoose = require('mongoose');
-const pokemon = require('./models/pokemon.js')
+const pokemon = require('./models/pokemon')
 
 
 // middeware
@@ -33,8 +33,11 @@ mongoose.connection.once("open", () => {
 app.get('/',(req,res)=>{
     res.send("WELCOME TO THE POKEMON APP!")
 })
-app.get('/pokemon',(req,res)=>{
-    res.render("Index")
+app.get('/pokemon',  (req,res)=>{
+    res.render("Index",{pokemon})
+})
+app.get('/pokemon/:id',  (req,res)=>{
+    res.send(req.params.id)
 })
 
 
