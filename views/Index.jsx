@@ -1,7 +1,9 @@
 import React from 'react'
-
+// import pokemon from '../models/pokemon'
 function Index(props) {
     const pokemon = props.pokemon
+   
+    // id = pokemon
   return (
     <div>
         <h1>See all of the Pokemon</h1>
@@ -9,13 +11,15 @@ function Index(props) {
            
             return(
                 <div key={i}>
-                    <ul>
+                 
+                <a href={`/pokemon/${mon._id}`}>
                         
-                        <li>
-                        {mon.id}
+                       
+                        {/* <h1>{i}</h1> */}
                         <h3>{mon.name}</h3>
-                    </li>
-                </ul>
+                        <img src={mon.img + '.jpg'} />
+                    
+                </a>
                 </div>
             )
         })}

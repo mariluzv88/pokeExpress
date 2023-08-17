@@ -3,7 +3,9 @@ const app = express()
 PORT = 3000
 require('dotenv').config()
 const mongoose = require('mongoose');
-const pokemon = require('./models/pokemon')
+const pokemon = require('./models/pokemon.js')
+const aPokemon = require('./models/aPokemon.js')
+
 
 
 // middeware
@@ -30,16 +32,30 @@ mongoose.connection.once("open", () => {
     console.log("connected to mongo");
   });
 // routes
+// app.get('/pokemon/seed', async(req,res)=>{
+//   await aPokemon.create(pokemon)
+//   res.redirect("Index")
+// })
 app.get('/',(req,res)=>{
     res.send("WELCOME TO THE POKEMON APP!")
 })
-app.get('/pokemon',  (req,res)=>{
-    res.render("Index",{pokemon})
+app.get('/pokemon', async (req,res)=>{
+  const pokemons = await aPokemon.find({})
+    res.render("Index",{pokemon:pokemons})
+    // ,{pokemon}
 })
-app.get('/pokemon/:id',  (req,res)=>{
-    res.send(req.params.id)
+app.get('/pokemon/:id', async (req,res)=>{
+  const eachPokemon = await aPokemon.findById[req.params.id]
+  // res.send(pokemon[req.params.id])
+    res.render("Show",{pokemon:eachPokemon})
 })
-
+// app.post("/pokemon/new", async (req, res) => {
+  
+//   const newPokemon = await pokemon.create(req.body)
+//   // await res.send(newFruit);
+  
+//   res.redirect("/pokemon");
+// });
 
 // port
 app.listen(PORT,(req,res)=>{
