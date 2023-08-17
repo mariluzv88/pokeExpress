@@ -3,6 +3,7 @@ const app = express()
 PORT = 3000
 require('dotenv').config()
 const mongoose = require('mongoose');
+const methodOverride = require('method-override')
 const pokemon = require('./models/pokemon.js')
 const aPokemon = require('./models/aPokemon.js')
 
@@ -14,23 +15,24 @@ app.engine("jsx", require("express-react-views").createEngine());
 app.use(express.urlencoded({extended:false}));
 // app.use(express.json())
 
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // useCreateIndex: true
+  });
+mongoose.connection.once('open', ()=> {
+    console.log('connected to mongo');
+});
+app.use(methodOverride('_method'));
 app.use((req, res, next) => {
     console.log("I run for all routes");
     next();
   });
 
-  mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useCreateIndex: true
-  });
-  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.once('open', ()=> {
-    console.log('connected to mongo');
-});
-mongoose.connection.once("open", () => {
-    console.log("connected to mongo");
-  });
+  // mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connection.once("open", () => {
+//     console.log("connected to mongo");
+//   });
 // routes
 // app.get('/pokemon/seed', async(req,res)=>{
 //   await aPokemon.create(pokemon)
@@ -45,7 +47,7 @@ app.get('/pokemon', async (req,res)=>{
     // ,{pokemon}
 })
 app.get('/pokemon/:id', async (req,res)=>{
-  const eachPokemon = await aPokemon.findById[req.params.id]
+  const eachPokemon = await aPokemon.findById(req.params.id)
   // res.send(pokemon[req.params.id])
     res.render("Show",{pokemon:eachPokemon})
 })
