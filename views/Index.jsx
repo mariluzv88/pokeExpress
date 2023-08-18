@@ -16,7 +16,7 @@ function Index(props) {
                         
                        
                         {/* <h1>{i}</h1> */}
-                        <h3>{mon.name}</h3>
+                        <h3>{mon.name.toUpperCase()}</h3>
                         <img src={mon.img + '.jpg'} />
                     
                 </a>

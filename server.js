@@ -35,11 +35,12 @@ app.use((req, res, next) => {
 //   });
 // routes
 // app.get('/pokemon/seed', async(req,res)=>{
+//   await aPokemon.deleteMany({})
 //   await aPokemon.create(pokemon)
-//   res.redirect("Index")
+//   res.redirect("/pokemon")
 // })
 app.get('/',(req,res)=>{
-    res.send("WELCOME TO THE POKEMON APP!")
+    res.render("Nav")
 })
 app.get('/pokemon', async (req,res)=>{
   const pokemons = await aPokemon.find({})
@@ -54,6 +55,12 @@ app.get('/pokemon/new', async (req,res)=>{
  
     res.render("New")
 })
+// delete
+app.delete('/pokemon/:id', async(req,res)=>{
+  await aPokemon.findByIdAndRemove(req.params.id)
+  res.redirect()
+})
+// edit
 app.get('/pokemon/:id', async (req,res)=>{
   const eachPokemon = await aPokemon.findById(req.params.id)
   // res.send(pokemon[req.params.id])
