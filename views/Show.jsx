@@ -12,7 +12,7 @@ function Show(props) {
        <h1>GOTTA CATCH THEM ALL</h1>
      
        <h2>{pokemon.name}</h2>
-       <img src={pokemon.img +'.jpg'}/>
+       <img src={pokemon.img + '.jpg'} />
          </div>
        
     </div>

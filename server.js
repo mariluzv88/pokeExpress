@@ -46,18 +46,19 @@ app.get('/pokemon', async (req,res)=>{
     res.render("Index",{pokemon:pokemons})
     // ,{pokemon}
 })
+app.post("/pokemon", async (req, res) => {
+  const newPokemon = await aPokemon.create(req.body)
+  res.redirect("/pokemon");
+});
+app.get('/pokemon/new', async (req,res)=>{
+ 
+    res.render("New")
+})
 app.get('/pokemon/:id', async (req,res)=>{
   const eachPokemon = await aPokemon.findById(req.params.id)
   // res.send(pokemon[req.params.id])
     res.render("Show",{pokemon:eachPokemon})
 })
-// app.post("/pokemon/new", async (req, res) => {
-  
-//   const newPokemon = await pokemon.create(req.body)
-//   // await res.send(newFruit);
-  
-//   res.redirect("/pokemon");
-// });
 
 // port
 app.listen(PORT,(req,res)=>{
