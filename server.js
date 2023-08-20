@@ -61,6 +61,14 @@ app.delete('/pokemon/:id', async(req,res)=>{
   res.redirect()
 })
 // edit
+app.get('/pokemon/:id/edit',async(req,res)=>{
+  const changePoke = await aPokemon.findByIdAndUpdate(req.params.id)
+  res.render("Edit",{pokemon: changePoke})
+})
+app.post('/pokemon/:id',async (req,res)=>{
+  const updatePoke = await aPokemon.findByIdAndUpdate(req.params.id, req.body)
+  res.redirect(`/pokemon/${req.params.id}`)
+})
 app.get('/pokemon/:id', async (req,res)=>{
   const eachPokemon = await aPokemon.findById(req.params.id)
   // res.send(pokemon[req.params.id])

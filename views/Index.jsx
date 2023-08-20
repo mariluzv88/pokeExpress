@@ -2,17 +2,34 @@ import React from 'react'
 // import pokemon from '../models/pokemon'
 function Index(props) {
     const pokemon = props.pokemon
-   
+    const myStyle = {
+      color: "red",
+      backgroundColor:"black",
+      fontSize:'25px',
+      fontFamily:"Verdana",
+      textAlign:"center",
+}
+    const nav = {
+      color: "yellow",
+      backgroundColor:"black",
+      fontSize:'20px',
+      fontFamily:"Verdana",
+      textAlign:"center",
+      textDecoration:"none",
+      
+}
     // id = pokemon
   return (
-    <div>
-        <h1>See all of the Pokemon</h1>
+    <div style={myStyle} >
+      <a style={nav}href='/'>Home</a><br/><br/>
+      <a  style={nav}href='/pokemon/new'>Create a Pokemon</a><br/>
+        <h1>See all of the Pokemon</h1><br/><hr/>
         {pokemon.map((mon,i)=>{
            
             return(
                 <div key={i}>
                  
-                <a href={`/pokemon/${mon._id}`}>
+                <a style={nav} href={`/pokemon/${mon._id}`}>
                         
                        
                         {/* <h1>{i}</h1> */}
